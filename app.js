@@ -754,19 +754,21 @@ function drawPdfRadar(doc, blockScores, centerX, centerY, radius) {
   // Ejes
   for(var k=0;k<n;k++){ var p=pt(k,20); doc.setDrawColor(230,230,230); doc.setLineWidth(0.2); doc.line(centerX,centerY,p[0],p[1]); }
 
-  // Polígono de datos — trazado completo sin triángulos (evita artefactos de costura)
   var poly2=values.map(function(v,i){return pt(i,v);});
-  // Fill: usar líneas acumuladas con setFillColor + beginPath no disponible en jsPDF básico
-  // Solución limpia: dibujar con lines[] array que jsPDF acepta para polígono cerrado
-  var lineCoords = [];
-  for(var e=0;e<poly2.length;e++){
-    var from=poly2[e], to=poly2[(e+1)%poly2.length];
-    lineCoords.push([to[0]-from[0], to[1]-from[1], 0]);
-  }
+  // Polígono de datos — dibujado manualmente con line() para evitar bug de scale en jsPDF 2.5
   doc.setFillColor(248,240,220);
-  doc.lines(lineCoords, poly2[0][0], poly2[0][1], [1,1], 'FD', true);
+  // Fill: triángulos desde centro (sin artefactos porque el fill es uniforme)
+  for(var e=0;e<poly2.length;e++){
+    var p1=poly2[e], p2=poly2[(e+1)%poly2.length];
+    doc.setFillColor(248,240,220);
+    doc.triangle(centerX,centerY,p1[0],p1[1],p2[0],p2[1],'F');
+  }
+  // Borde del polígono
   doc.setDrawColor.apply(doc,PDF_THEME.gold); doc.setLineWidth(1.0);
-  doc.lines(lineCoords, poly2[0][0], poly2[0][1], [1,1], 'S', true);
+  for(var f=0;f<poly2.length;f++){
+    var pa=poly2[f], pb=poly2[(f+1)%poly2.length];
+    doc.line(pa[0],pa[1],pb[0],pb[1]);
+  }
 
   // Puntos sobre vértices
   for(var m=0;m<n;m++){ doc.setFillColor.apply(doc,PDF_THEME.gold); doc.circle(poly2[m][0],poly2[m][1],1.6,'F'); }
