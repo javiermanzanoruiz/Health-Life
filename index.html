@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Health & Life — Evaluación de Salud Integral</title>
+<meta name="description" content="Descubre tu perfil funcional y qué palanca mover primero en 5 pilares: estrés, descanso, movimiento, hábitos y estado físico.">
+<meta name="theme-color" content="#0a0c0f">
+<link rel="canonical" href="https://javiermanzanoruiz.github.io/Health-Life/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="wrap">
+<header class="top">
+  <p class="brand">Health & Life by Javier Manzano</p>
+  <h1>Tu mapa de salud en cinco pilares</h1>
+  <p class="sub">25 preguntas, cinco minutos. Obtienes tu perfil funcional y la palanca que conviene mover primero.</p>
+</header>
+
+<section id="start">
+<form id="intake" novalidate>
+  <label>Nombre<input id="name" required autocomplete="name"></label>
+  <label>Email o WhatsApp<input id="contact" required inputmode="email" autocomplete="email"></label>
+  <input id="web" name="web" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+  <div id="ctx"></div>
+  <label>Cuéntame algo más (opcional)<textarea id="goal" rows="2" placeholder="Lo que quieras que tenga en cuenta"></textarea></label>
+  <fieldset>
+    <legend>Filtro de seguridad: responde sí o no</legend>
+    <div id="safetyList"></div>
+  </fieldset>
+  <label class="check"><input type="checkbox" id="consent"><span>Acepto que Javier Manzano trate mis datos, incluidos los de salud que declaro, para generar mi informe y contactarme sobre mi valoración.</span></label>
+  <details class="priv"><summary>Información sobre protección de datos</summary>
+    <!-- REVISAR CON ASESOR LEGAL antes de publicar -->
+    <p><b>Responsable:</b> Javier Manzano. <b>Contacto:</b> javiermanzanoruiz@hotmail.com.</p>
+    <p><b>Finalidad:</b> generar tu informe, preparar tu valoración y contactarte por el medio que indiques. <b>Base legal:</b> tu consentimiento explícito, que puedes retirar cuando quieras.</p>
+    <p><b>Qué se guarda:</b> nombre, contacto, objetivo, puntuaciones y perfil. Las respuestas del filtro de seguridad no se guardan: solo si hay o no alerta.</p>
+    <p><b>Conservación:</b> [definir plazo]. <b>Derechos:</b> acceso, rectificación, supresión, limitación, oposición y portabilidad, escribiendo al correo anterior.</p>
+  </details>
+  <p id="err" role="alert"></p>
+  <button type="submit" class="btn">Empezar la evaluación</button>
+</form>
+</section>
+
+<section id="quiz" hidden>
+  <div class="progress"><i id="bar"></i></div>
+  <p id="qmeta" class="meta"></p>
+  <h2 id="qtext"></h2>
+  <div id="opts"></div>
+  <button id="back" class="ghost" type="button">Anterior</button>
+</section>
+
+<section id="result" hidden></section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
